@@ -1,5 +1,5 @@
 """
-
+递归查找json中key的值
 """
 import json
 
@@ -33,3 +33,11 @@ class GetKeyValue(object):
                     if isinstance(item, dict):
                         self.__search(item, key)
         return
+
+
+gkv = GetKeyValue(o={'demo': 'show demo'}, mode='j')  # mode=j意味传入的object是一个json对象
+# 也可以：
+# gkv = GetKeyValue("{'demo': 'show demo'}", mode='s')  # mode=s意味着传入的object是一个json的字符串对象
+# 之后，假设需要查找key=demo的值：
+print(gkv.search_key('demo'))
+# 就可以了。

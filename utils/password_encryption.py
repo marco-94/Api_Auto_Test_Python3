@@ -18,7 +18,7 @@ class PasswordEncryption:
         :return: 公钥
         """
         # 获取公钥
-        get_public_key_response = request_method.RequestMethod.get_method(self.domain + "/sso/security/k").json()
+        get_public_key_response = request_method.RequestMethod.get_method(self.domain + "").json()
         public_keys = get_public_key_response["data"]
         # 替换公钥字符"-"和"_"
         keys = public_keys.replace("-", "+")

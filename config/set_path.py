@@ -12,7 +12,7 @@ from utils.file_reader import YamlReader
 BASE_PATH = os.path.split(os.path.dirname(os.path.abspath(__file__)))[0]
 sys.path.append(BASE_PATH)
 CONFIG_PATH = os.path.join(BASE_PATH, 'config')
-CONFIG_FILE = os.path.join(BASE_PATH, 'config', 'config_320500_prod.yml')
+CONFIG_FILE = os.path.join(BASE_PATH, 'config', 'config.yml')
 VIDEO_FILE = os.path.join(BASE_PATH, 'test_data', 'video')
 PICTURE_FILE = os.path.join(BASE_PATH, 'test_data', 'picture')
 

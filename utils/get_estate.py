@@ -52,15 +52,12 @@ class Estate:
             "unitId": unit_id,
             "unitNo": unit_no,
             "houseNo": house_no,
-            "toward": "",
-            "tags": "",
-            "useful": "",
             "pageNo": page_no,
             "pageSize": 2000
         }
 
         get_house_response = request_method.RequestMethod.get_method(
-            self.data["domain"] + "/ops.community.api/esta/propertyinfo/list", token, get_house_value).json()
+            self.data["domain"] + "", token, get_house_value).json()
         house_no_list = get_house_response["data"]["list"]
 
         # 定义车位/写字楼/商铺/厂房类房源的房号
@@ -90,7 +87,7 @@ class Estate:
                 }
             # 根据传入的类型，查询租房或者二手房
             check_estate_house_no_response = request_method.RequestMethod.post_method(
-                self.data["domain"] + "/erp.property.api/v2/common/pc/" + property_type + "/checkPropIsExist", token,
+                self.data["domain"] + "" + property_type, token,
                 check_estate_house_no_value).json()
             estate_house_no_state = check_estate_house_no_response["data"]["isExist"]
             return_json["estate_house_state"] = estate_house_no_state
@@ -118,36 +115,3 @@ class Estate:
                 break
 
         return return_json
-
-    def get_estate_house_type(self, token):
-        """
-        获取新房楼盘户型
-        :return:
-        """
-
-        house_type_list = []
-
-        get_estate_house_type_value = {
-            "cityCode": self.data["X-City-Code"],
-            "estateCode": self.data["new_house_estate_code"],
-            "pageNo": 1,
-            "pageSize": 100
-        }
-
-        get_estate_house_type_response = request_method.RequestMethod.get_method(
-            self.data["domain"] + "/ops.community.api/esta/estatehousepicture/list", token,
-            get_estate_house_type_value).json()
-
-        house_type_response = get_estate_house_type_response["data"]["list"]
-
-        # 构造户型图集合
-        for i in range(len(house_type_response)):
-            house_type = {
-                "houseDesc": house_type_response[i]["housetTypeName"] + str(
-                    house_type_response[i]["bedroom"]) + "室" + str(house_type_response[i]["livingroom"]) + "厅" + str(
-                    house_type_response[i]["bathroom"]) + "卫" + str(house_type_response[i]["usefulArea"]) + "㎡",
-                "housePictureId": house_type_response[i]["housePictureId"]
-            }
-            house_type_list.append(house_type)
-
-        return house_type_list
